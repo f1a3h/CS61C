@@ -11,20 +11,20 @@ int main() {
   // Hint: C represents arrays as a pointer to the first element
   // Hint: one malloc call allocates memory for the entire array
   //       it works because the elements are stored side by side
-  ______ some_array = malloc(______);
+  int16_t *some_array = malloc(sizeof(int16_t) * 4);
   printf("address of the start of the array: %p\n", some_array);
 
   // TODO: compute the address of the element at index 2 (0-indexed)
-  ______ ptr_to_idx_2 = ____________;
+  int16_t *ptr_to_idx_2 = some_array + 2;
   printf("address of index 2: %p\n", ptr_to_idx_2);
 
   // TODO: store the value 10 at index 2, using ptr_to_idx_2
-  __________ = 10;
+  *ptr_to_idx_2 = 10;
 
   // TODO: print the value at index 2
   // Hint: this blank should be the same as the previous blank
   //       please don't hard code 10
-  printf("value at index 2: %d\n", __________);
+  printf("value at index 2: %d\n", *ptr_to_idx_2);
 
   return 0;
 }
