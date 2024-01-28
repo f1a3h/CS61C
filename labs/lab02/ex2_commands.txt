@@ -3,3 +3,34 @@
 # Lines starting with # are comments, feel free to add any to document your commands
 
 # Please add your commands below this line
+
+1. Start
+   l
+   b 6
+   r
+2. Step Over
+   n
+3. Step Until
+   n 3
+4. Step Into `check_password`
+   s
+5. Step Into `check_lower`
+   s
+6. Print
+   p password
+7. Step Out
+   fin
+8. Step Into `check_length`
+   l
+   n
+   s
+9. Step to The Last Line
+   l
+   n 2
+10.Print
+   p meets_len_req
+11.Print
+   p length
+12.Quit
+   q
+   y
