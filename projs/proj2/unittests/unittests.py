@@ -86,14 +86,28 @@ class TestArgmax(TestCase):
     def test_exception(self):
         t = AssemblyTest(self, "argmax.s")
         # create an array in the data section
-        array0 = t.array([1, 0, -5, 7, 255, -345])
+        array0 = t.array([])
         # load address of the array into register a0
         t.input_array("a0", array0)
         # set a1 to the length of the array
-        t.input_scalar("a1", -1)
+        t.input_scalar("a1", len(array0))
         # call the `argmax` function
         t.call("argmax")
-        t.execute(code = 77)
+        t.execute(code=77)
+
+    def test_index(self):
+        t = AssemblyTest(self, "argmax.s")
+        # create an array in the data section
+        array0 = t.array([1, 7, -5, 7, 3, -4])
+        # load address of the array into register a0
+        t.input_array("a0", array0)
+        # set a1 to the length of the array
+        t.input_scalar("a1", len(array0))
+        # call the `argmax` function
+        t.call("argmax")
+        # check that the register a0 contains the correct output
+        t.check_scalar("a0", 1)
+        t.execute()
 
     @classmethod
     def tearDownClass(cls):
@@ -253,20 +267,34 @@ class TestReadMatrix(TestCase):
         cols = t.array([-1])
 
         # load the addresses to the output parameters into the argument registers
-        raise NotImplementedError("TODO")
-        # TODO
+        t.input_array("a1", rows)
+        t.input_array("a2", cols)
 
         # call the read_matrix function
         t.call("read_matrix")
 
         # check the output from the function
-        # TODO
+        t.check_array_pointer("a0", [1, 2, 3, 4, 5, 6, 7, 8, 9])
+        t.check_array(rows, [3])
+        t.check_array(cols, [3])
 
         # generate assembly and run it through venus
         t.execute(fail=fail, code=code)
 
     def test_simple(self):
         self.do_read_matrix()
+
+    def test_exception_88(self):
+        self.do_read_matrix(fail='malloc', code=88)
+
+    def test_exception_90(self):
+        self.do_read_matrix(fail='fopen', code=90)
+
+    def test_exception_91(self):
+        self.do_read_matrix(fail='fread', code=91)
+
+    def test_exception_92(self):
+        self.do_read_matrix(fail='fclose', code=92)
 
     @classmethod
     def tearDownClass(cls):
@@ -281,17 +309,29 @@ class TestWriteMatrix(TestCase):
         # load output file name into a0 register
         t.input_write_filename("a0", outfile)
         # load input array and other arguments
-        raise NotImplementedError("TODO")
-        # TODO
+        matrix = t.array([1, 2, 3, 4, 5, 6, 7, 8, 9])
+        t.input_array("a1", matrix)
+        t.input_scalar("a2", 3)
+        t.input_scalar("a3", 3)
         # call `write_matrix` function
         t.call("write_matrix")
         # generate assembly and run it through venus
         t.execute(fail=fail, code=code)
         # compare the output file against the reference
-        t.check_file_output(outfile, "outputs/test_write_matrix/reference.bin")
+        if not fail:
+            t.check_file_output(outfile, "outputs/test_write_matrix/reference.bin")
 
     def test_simple(self):
         self.do_write_matrix()
+
+    def test_exception_93(self):
+        self.do_write_matrix(fail='fopen', code=93)
+
+    def test_exception_94(self):
+        self.do_write_matrix(fail='fwrite', code=94)
+
+    def test_exception_95(self):
+        self.do_write_matrix(fail='fclose', code=95)
 
     @classmethod
     def tearDownClass(cls):
@@ -322,9 +362,9 @@ class TestClassify(TestCase):
         t.execute(args=args)
 
         # compare the output file and
-        raise NotImplementedError("TODO")
-        # TODO
+        t.check_file_output(out_file, ref_file)
         # compare the classification output with `check_stdout`
+        t.check_stdout("2")
 
     @classmethod
     def tearDownClass(cls):
