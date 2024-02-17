@@ -96,7 +96,7 @@
       <a name="font" val="SansSerif plain 12"/>
     </tool>
   </lib>
-  <lib desc="file#cpu-harness.circ" name="6"/>
+  <lib desc="file#../../harnesses/cpu-harness.circ" name="6"/>
   <main name="run_main"/>
   <options>
     <a name="gateUndefined" val="ignore"/>
@@ -171,7 +171,7 @@
       <a name="width" val="16"/>
     </comp>
     <comp lib="0" loc="(1630,980)" name="Constant">
-      <a name="value" val="0x4258"/>
+      <a name="value" val="0x42"/>
       <a name="width" val="16"/>
     </comp>
     <comp lib="0" loc="(1750,970)" name="Pin">
@@ -315,7 +315,7 @@
       <a name="addrWidth" val="14"/>
       <a name="appearance" val="logisim_evolution"/>
       <a name="contents">addr/data: 14 32
-0
+13 413 100093 8413 200113 10413 300193 18413 400213 20413 500293 28413 600313 30413 700393 38413 800413 40413 900493 48413 a00513 50413 b00593 58413 c00613 60413 d00693 68413 e00713 70413 f00793 78413 1000813 80413 1100893 88413 1200913 90413 1300993 98413 1400a13 a0413 1500a93 a8413 1600b13 b0413 1700b93 b8413 1800c13 c0413 1900c93 c8413 1a00d13 d0413 1b00d93 d8413 1c00e13 e0413 1d00e93 e8413 1e00f13 f0413 1f00f93 f8413
 </a>
       <a name="dataWidth" val="32"/>
     </comp>
