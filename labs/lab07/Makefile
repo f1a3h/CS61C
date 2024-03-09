@@ -1,20 +1,15 @@
 CC=gcc
-LD=gcc
-CFLAGS=-ggdb -Wall -pedantic -std=gnu99 -O3
-LDFLAGS=
+CFLAGS_SIMD=-std=c99 -Wall -O0 -c -mavx -mfma -g
 
-EX2_PROG=matrixMultiply
+ex1: ex1_test.o ex1.o
+	$(CC) $^ -o $@
 
-EX3_OBJS=transpose.o test_transpose.o
-EX3_PROG=transpose
+ex1_test.o: ex1_test.c
+	$(CC) $(CFLAGS_SIMD) $< -o $@
 
-ex2:
-		$(CC) -o $(EX2_PROG) $(CFLAGS) $(EX2_PROG).c
-			./$(EX2_PROG)
-
-ex3: $(EX3_OBJS)
-		$(CC) -o $(EX3_PROG) $(CFLAGS) $(EX3_OBJS)
+ex1.o: ex1.c ex1.h
+	$(CC) $(CFLAGS_SIMD) $< -o $@
 
 clean:
-		-rm -rf core *.o *~ "#"*"#" Makefile.bak $(PROGS) *.dSYM
-
+	rm -f ex1
+	rm -f *.o
